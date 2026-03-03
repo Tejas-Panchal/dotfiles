@@ -15,3 +15,8 @@ export CHROME_EXECUTABLE="/usr/bin/chromium"
 
 # Cargo/Rust
 . "$HOME/.cargo/env"
+
+# pyenv for local python version
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

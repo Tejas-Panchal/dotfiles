@@ -35,6 +35,8 @@ alias g='git'
 alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 alias gcad='git commit -a --amend'
+alias glog="git log --oneline --graph"
 # Your personal aliases from .bashrc
 alias p='python'
 alias config="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias f="fastfetch"

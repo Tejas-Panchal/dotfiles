@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Auto-clicker toggle with proper process management
 # Improved version with PID tracking, error handling, and graceful shutdown

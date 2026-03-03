@@ -8,9 +8,10 @@ export PATH=$PATH:/home/virus/Dev/flutter/bin
 export PATH=$PATH:/home/virus/Dev/Android/sdk/platform-tools/
 export PATH=$PATH:/home/virus/.opencode/bin
 export MANPATH=/home/virus/.local/share/man:$MANPATH
-export PATH=/home/virus/.local/bin:$PATH
-export PATH=/home/virus/Scripts:$PATH
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/Scripts
 export PATH=$PATH:$HOME/.local/share/go/bin
+export CHROME_EXECUTABLE="/usr/bin/chromium"
 
 # Cargo/Rust
 . "$HOME/.cargo/env"

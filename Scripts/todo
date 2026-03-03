@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 TODO_LIST_FILE="/home/virus/.local/cache/todo_list.txt"
 
@@ -67,7 +67,7 @@ clear_all ()
 
 show_help ()
 {
-  echo -e "simple bash to-do list"
+  echo -e "simple zsh to-do list"
   echo "usage:"
   echo "  -l               -> show all tasks"
   echo "  -a \"task name\"   -> add a new task"

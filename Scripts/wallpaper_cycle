@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 # set wallpaper directory
 wallpaperDir="$HOME/Wallpapers"
 

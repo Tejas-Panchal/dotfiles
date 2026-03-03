@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 hyprctl dispatch fullscreen
 
 SESSION_NAME="$1"

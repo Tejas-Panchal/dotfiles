@@ -29,3 +29,5 @@ export PATH=$PATH:$HOME/.local/share/go/bin
 # Make an alias for invoking commands you use constantly
 alias p='python'
 alias config="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+
+. "$HOME/.local/share/../bin/env"

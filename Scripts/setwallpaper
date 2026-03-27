@@ -1,0 +1,97 @@
+#!/bin/zsh
+
+# defaults
+wallpaperDir=""
+includeImg=false
+includeGif=false
+sleepTime="1"
+
+# help function
+show_help() {
+  echo "Usage: setwallpaper [options]"
+  echo ""
+  echo "Options:"
+  echo "  -d <path>   Wallpaper directory or file path"
+  echo "  -img        Include images (jpg, png) [directory only]"
+  echo "  -gif        Include gifs [directory only]"
+  echo "  -t <min>    Sleep time in minutes (default: 1) [directory only]"
+  echo "  -h          Show this help message"
+  echo "---"
+}
+
+# start sww-daemon if not running
+if ! pgrep -x "swww-daemon" > /dev/null; then
+  echo "starting swww-daemon..."
+  swww-daemon &
+  sleep 1
+fi
+
+# pre-process -img and -gif flags
+new_args=()
+for arg in "$@"; do
+  case "$arg" in
+    -img) includeImg=true ;;
+    -gif) includeGif=true ;;
+    -h) show_help; exit 0 ;;
+    *) new_args+=("$arg") ;;
+  esac
+done
+set -- "${new_args[@]}"
+
+# parse remaining flags
+while getopts "d:t:h" opt; do
+  case $opt in
+    d) wallpaperDir="$OPTARG" ;;
+    t) sleepTime="$OPTARG" ;;
+    *) show_help; exit 1 ;;
+  esac
+done
+
+# check if path exists
+if [[ "$wallpaperDir" == "" ]]; then
+  show_help
+  exit 1
+fi
+if [[ ! -e "$wallpaperDir" ]]; then
+  echo "Error: Path not found: $wallpaperDir"
+  exit 1
+fi
+
+# file mode - set single file and exit
+if [[ -f "$wallpaperDir" ]]; then
+  swww img "$wallpaperDir" --transition-type random --transition-duration 5
+  sleep 6
+  exit 0
+fi
+
+# directory mode - validate flags
+if [[ "$includeImg" != "true" && "$includeGif" != "true" ]]; then
+  echo "Error: Either -img or -gif must be specified for directory mode"
+  exit 1
+fi
+
+if [[ "$sleepTime" -lt 1 ]]; then
+  sleepTime=1
+fi
+
+# build extension pattern and find files
+if [[ "$includeImg" == "true" && "$includeGif" == "true" ]]; then
+  files=$(find "$wallpaperDir" -maxdepth 2 -type f \( -iname "*.jpg" -o -iname "*.png" -o -iname "*.gif" \) 2>/dev/null)
+elif [[ "$includeImg" == "true" ]]; then
+  files=$(find "$wallpaperDir" -maxdepth 2 -type f \( -iname "*.jpg" -o -iname "*.png" \) 2>/dev/null)
+else
+  files=$(find "$wallpaperDir" -maxdepth 2 -type f -iname "*.gif" 2>/dev/null)
+fi
+
+if [[ -z "$files" ]]; then
+  echo "Error: No matching files found in: $wallpaperDir"
+  exit 1
+fi
+
+
+# loop through files
+while true; do
+  file=$(echo "$files" | shuf -n1)
+  swww img "$file" --transition-type random --transition-duration 5
+  sleep "${sleepTime}m"
+done

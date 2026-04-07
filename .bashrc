@@ -31,3 +31,5 @@ alias p='python'
 alias config="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 . "$HOME/.local/share/../bin/env"
+export JAVA_HOME=/tmp/jdk-17.0.13+11
+export PATH=$JAVA_HOME/bin:$PATH

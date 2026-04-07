@@ -1,0 +1,8 @@
+#!/bin/zsh
+if [[ -z $2 ]]; then
+  adb reverse tcp:8000 tcp:8000
+else
+  adb reverse tcp:"$2" tcp:"$2"
+fi
+flutter run -d "$1"
+exit

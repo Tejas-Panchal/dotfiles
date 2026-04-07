@@ -20,9 +20,9 @@ show_help() {
 }
 
 # start sww-daemon if not running
-if ! pgrep -x "swww-daemon" > /dev/null; then
-  echo "starting swww-daemon..."
-  swww-daemon &
+if ! pgrep -x "awww-daemon" > /dev/null; then
+  echo "starting awww-daemon..."
+  awww-daemon &
   sleep 1
 fi
 
@@ -59,7 +59,7 @@ fi
 
 # file mode - set single file and exit
 if [[ -f "$wallpaperDir" ]]; then
-  swww img "$wallpaperDir" --transition-type random --transition-duration 5
+  awww img "$wallpaperDir" --transition-type random --transition-duration 5
   sleep 6
   exit 0
 fi
@@ -92,6 +92,6 @@ fi
 # loop through files
 while true; do
   file=$(echo "$files" | shuf -n1)
-  swww img "$file" --transition-type random --transition-duration 5
+  awww img "$file" --transition-type random --transition-duration 5
   sleep "${sleepTime}m"
 done

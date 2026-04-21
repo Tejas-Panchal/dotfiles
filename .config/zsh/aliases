@@ -26,7 +26,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 # Tools
-alias c='opencode'
+alias o='opencode'
 alias d='docker'
 alias r='rails'
 n() { if [ "$#" -eq 0 ]; then nvim .; else nvim "$@"; fi; }
@@ -37,7 +37,6 @@ alias gcm='git commit -m'
 alias gcam='git commit -a -m'
 alias gcad='git commit -a --amend'
 alias glog="git log --oneline --graph"
-# Your personal aliases from .bashrc
+# personal aliases
 alias p='python'
 alias config="git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-alias f="fastfetch"

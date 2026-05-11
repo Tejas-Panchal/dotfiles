@@ -1,0 +1,13 @@
+#TabsToolbar { display: none; }
+#sidebar-box #sidebar-header {display: none !important;}
+* {
+  background-color: black !important;
+  border-radius: 0px !important;
+}
+
+.toolbarbutton-icon #unified-extensions-button {
+  height: 15px !important;
+  width: 15px !important;
+  padding: 1px !important;
+}
+

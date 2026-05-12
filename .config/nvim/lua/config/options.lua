@@ -1,0 +1,15 @@
+vim.o.guicursor = ""
+vim.o.showmode = true
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.scrolloff = 8
+vim.o.signcolumn = "yes"
+vim.opt.statuscolumn = "%s %l "
+vim.o.wrap = true
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+vim.o.autoindent = true
+vim.o.smartindent = true
+vim.opt.swapfile = false

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [[ $# -eq 0 ]]; then
+  session="__temp"
+  if /usr/bin/tmux has-session -t "$session" 2>/dev/null; then
+    if [[ -n $TMUX ]]; then
+      /usr/bin/tmux switch-client -t "$session"
+    else
+      /usr/bin/tmux attach-session -t "$session"
+    fi
+  else
+    /usr/bin/tmux new-session -d -s "$session" -n "temp1"
+    /usr/bin/tmux new-window -t "$session" -n "temp2"
+    if [[ -n $TMUX ]]; then
+      /usr/bin/tmux switch-client -t "$session"
+    fi
+  fi
+elif [[ "$1" == "-d" ]]; then
+  exec tmux-sessionizer
+elif [[ -d "$1" ]]; then
+  exec tmux-sessionizer "$1"
+else
+  exec /usr/bin/tmux "$@"
+fi
+

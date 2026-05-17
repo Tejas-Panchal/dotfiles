@@ -1,8 +1,14 @@
+local ok, cmp_caps = pcall(require, "cmp_nvim_lsp")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-vim.lsp.enable({ "lua_ls", "gopls", "clangd", "jdtls", "pyright", "vimls" })
+if ok then
+	capabilities = vim.tbl_deep_extend("force", capabilities, cmp_caps.default_capabilities())
+end
+vim.lsp.config["*"] = vim.tbl_deep_extend("force", vim.lsp.config["*"] or {}, {
+	capabilities = capabilities,
+})
 
+vim.lsp.enable({ "lua_ls", "gopls", "clangd", "jdtls", "pyright", "vimls", "marksman", "kotlin_language_server" })
 vim.diagnostic.config({
 	signs = {
 		text = {

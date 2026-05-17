@@ -12,6 +12,7 @@ conform.setup({
 		c        = { "clang-format" },
 		cpp      = { "clang-format" },
 		java     = { "clang-format" },
+		kotlin   = { "ktlint" },
 		python   = { "ruff_format" },
 		json     = { "fixjson" },
 		yaml     = { "yamlfmt" },

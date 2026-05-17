@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+year=$(date +%Y)
+month_num=$(date +%m)
+month_name=$(date +%b | tr '[:upper:]' '[:lower:]')
+day_num=$(date +%d)
+day_name=$(date +%A)
+
+dir="$HOME/Documents/Notes/daily/$year"
+file="$dir/$month_num-$month_name.md"
+
+mkdir -p "$dir"
+header="### $day_num-$month_num-$year  $day_name"
+if [ ! -f "$file" ]; then
+  { echo "$header"; echo ""; echo " - " } > "$file"
+  elif [ "$(grep "^### " "$file" | tail -1)" != "$header" ]; then
+  { echo ""; echo "$header"; echo ""; echo " - " } >> "$file"
+fi
+
+${EDITOR:-nvim} +$ "$file"

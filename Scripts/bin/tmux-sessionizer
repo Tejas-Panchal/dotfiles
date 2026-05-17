@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+LAYOUTS_CONF="$HOME/.config/tmux-sessionizer/layouts.conf"
+
+if [[ $# -eq 1 ]]; then
+  selected=$1
+else
+  selected=$({
+    find ~/projects -mindepth 1 -maxdepth 2 -type d 2>/dev/null | sort -u
+    if [[ -f "$LAYOUTS_CONF" ]]; then
+      while IFS=' ' read -r name _; do
+        [[ -z "$name" || "$name" == \#* ]] && continue
+        echo "[layout] $name"
+      done < "$LAYOUTS_CONF" | sort -u
+    fi
+  } | fzf
+)
+fi
+
+[[ -z $selected ]] && exit 0
+
+if [[ "$selected" == "[layout] "* ]]; then
+  selected_name="${selected#"[layout] "}"
+  selected=""
+else
+  selected_name=$(basename "$selected" | tr . _)
+fi
+
+if /usr/bin/tmux has-session -t "$selected_name" 2>/dev/null; then
+  if [[ -n $TMUX ]]; then
+    /usr/bin/tmux switch-client -t "$selected_name"
+  else
+    /usr/bin/tmux attach-session -t "$selected_name"
+  fi
+  exit 0
+fi
+
+layout_found=false
+if [[ -f "$LAYOUTS_CONF" ]]; then
+  while IFS=' ' read -r name win_name win_path; do
+    [[ -z "$name" || "$name" == \#* ]] && continue
+    [[ "$name" != "$selected_name" ]] && continue
+
+    cmd=""
+    if [[ "$win_path" == *" :: "* ]]; then
+      cmd="${win_path#* :: }"
+      win_path="${win_path% :: *}"
+    fi
+
+    if [[ "$layout_found" == false ]]; then
+      if [[ -n "$cmd" ]]; then
+        /usr/bin/tmux new-session -d -s "$selected_name" -n "$win_name" -c "$win_path" "$cmd"
+      else
+        /usr/bin/tmux new-session -d -s "$selected_name" -n "$win_name" -c "$win_path"
+      fi
+      layout_found=true
+    else
+      if [[ -n "$cmd" ]]; then
+        /usr/bin/tmux new-window -t "$selected_name" -n "$win_name" -c "$win_path" "$cmd"
+      else
+        /usr/bin/tmux new-window -t "$selected_name" -n "$win_name" -c "$win_path"
+      fi
+    fi
+  done < "$LAYOUTS_CONF"
+fi
+
+if [[ "$layout_found" == true ]]; then
+  /usr/bin/tmux select-window -t "$selected_name:1"
+fi
+
+if [[ "$layout_found" == false ]]; then
+  /usr/bin/tmux new-session -ds "$selected_name" -c "$selected"
+fi
+
+if [[ -n $TMUX ]]; then
+  /usr/bin/tmux switch-client -t "$selected_name"
+else
+  /usr/bin/tmux attach-session -t "$selected_name"
+fi

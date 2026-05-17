@@ -26,4 +26,10 @@ vim.pack.add({
 	{ src = "https://github.com/saadparwaiz1/cmp_luasnip" },
 	{ src = "https://github.com/nvim-flutter/flutter-tools.nvim" },
 	{ src = "https://github.com/stevearc/dressing.nvim" },
+	{ src = "https://github.com/folke/flash.nvim" },
+	{ src = "https://github.com/kdheepak/lazygit.nvim" },
+	{ src = "https://github.com/epilande/checkbox-cycle.nvim" },
+	{ src = "https://github.com/bullets-vim/bullets.vim" },
+	{ src = "https://github.com/folke/persistence.nvim" },
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 })

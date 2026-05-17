@@ -9,7 +9,7 @@ export PATH=$PATH:/home/virus/Dev/Android/sdk/platform-tools/
 export PATH=$PATH:/home/virus/.opencode/bin
 export MANPATH=/home/virus/.local/share/man:$MANPATH
 export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/Scripts/bin
+export PATH=$HOME/Scripts/bin:$PATH
 export PATH=$PATH:$HOME/.local/share/go/bin
 export CHROME_EXECUTABLE="/usr/bin/brave-origin-nightly"
 export PATH=$PATH:$HOME/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/bin/
@@ -17,3 +17,4 @@ export PATH=$PATH:$HOME/.local/share/uv/python/cpython-3.12.13-linux-x86_64-gnu/
 # Cargo/Rust
 . "$HOME/.cargo/env"
 
+typeset -U PATH
